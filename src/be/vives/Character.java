@@ -3,7 +3,7 @@ package be.vives;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Character {
+public abstract class Character {
     private String name;
     private CharacterType type;
     private int level;
@@ -92,4 +92,35 @@ public class Character {
         return leveledUp; // true = level up; false = no level up
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public CharacterType getType() {
+        return type;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
+
+    public ArrayList<Skill> getSkills() {
+        return skills;
+    }
+
+    public HashMap<BodyPart, Item> getEquipped() {
+        return equipped;
+    }
+
+    public int getCurrentHP(){
+        return currentHP;
+    }
+
+    public int getBaseHP(){
+        return baseHP;
+    }
 }

@@ -1,5 +1,5 @@
 package be.vives;
 
-public enum MobType {
+public enum EnemyType {
     CRYING_BABY, DEAD_MEME, DUTCH_PERSON, GAY_PERSON, KAREN, FEMINIST, AMERICAN_PERSON, GANGSTER_RAPPER, THOTS, FURRY
 }

@@ -1,5 +1,7 @@
 package be.vives;
 
+//Add Event superclass in case there are more events than just 'Fight'
+
 public class Fight {
     public Character character;
     public Enemy enemy;

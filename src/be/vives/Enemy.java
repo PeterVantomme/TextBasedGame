@@ -8,18 +8,18 @@ public abstract class Enemy {
     private int baseHP;
     private int currentHP;
     private int xpValue;
-    private MobType mobType;
+    private EnemyType enemyType;
     private ArrayList<Item> droptable;
     private ArrayList<Skill> skills;
 
     public Enemy(String name, String level, int baseHP, int currentHP,
-                 int xpValue, MobType mobType, ArrayList<Item> droptable, ArrayList<Skill> skills) {
+                 int xpValue, EnemyType enemyType, ArrayList<Item> droptable, ArrayList<Skill> skills) {
         this.name = name;
         this.level = level;
         this.baseHP = baseHP;
         this.currentHP = currentHP;
         this.xpValue = xpValue;
-        this.mobType = mobType;
+        this.enemyType = enemyType;
         this.droptable = droptable;
         this.skills = skills;
     }
@@ -75,8 +75,8 @@ public abstract class Enemy {
         return xpValue;
     }
 
-    public MobType getMobType() {
-        return mobType;
+    public EnemyType getEnemyType() {
+        return enemyType;
     }
 
     public ArrayList<Item> getDroptable() {

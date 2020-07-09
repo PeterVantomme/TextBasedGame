@@ -3,6 +3,8 @@ package be.vives;
 import javax.swing.*;
 import java.util.HashMap;
 
+//TODO: add the values from enum to class
+
 public class Skill {
     private SkillName skillName; //Contains the skillnames and their description
     private final String[] skillValues = {"damage","heal","buffdamage","buffhealth"}; //Temporary selection of possible skills

@@ -3,7 +3,7 @@ package be.vives;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Character {
+public class Character {
     private String name;
     private CharacterType type;
     private int level;
@@ -15,18 +15,17 @@ public abstract class Character {
     private ArrayList<Skill> skills;
     private HashMap<BodyPart, Item> equipped;
 
-    public Character(String name, CharacterType type, int baseHP, int currentHP) {
+    public Character(String name, CharacterType type) {
         this.name = name;
         this.type = type;
         this.level = 1;
         this.xp = 0;
         this.baseHP = baseHP;
-        this.currentHP = currentHP;
+        this.currentHP = type.baseHealth;
         this.inventoryLimit = 10;
         this.inventory = new ArrayList<>();
         this.skills = new ArrayList<>();
         this.equipped = new HashMap<>();
-
     }
 
     public boolean takeDamage(int damage){
@@ -68,10 +67,13 @@ public abstract class Character {
             if(equipped.containsKey(item.getBodypart())) {          //if equipment slot is occupied
                 inventory.add(equipped.get(item.getBodypart()));
                 equipped.put(item.getBodypart(), item);
+                processItems();
                 return true;
             }
             else{                                                   //if nothing is in equipment slot
+                inventory.remove(item);
                 equipped.put(item.getBodypart(), item);
+                processItems();
                 return true;
             }
         }
@@ -90,6 +92,28 @@ public abstract class Character {
             leveledUp = true;
         }
         return leveledUp; // true = level up; false = no level up
+    }
+
+    public void processItems (){
+
+        int damagebonus;
+        int staminabonus;
+        equipped.forEach((bodypart,item)-> {
+            item.getValues().forEach((stringItemValue,integerItemBonus)->{
+                if(stringItemValue.trim().toLowerCase().equals("healthbonus")){
+                    baseHP += integerItemBonus;
+                    currentHP = baseHP;
+                }
+                else if(stringItemValue.trim().toLowerCase().equals("damagebonus")){
+                    skills.get(skills.indexOf(SkillName.MELEE)).getValues().forEach((stringSkillValue,integerSkillValue)->{
+                        if (stringSkillValue.equals("damage")){
+                            skills.get(skills.indexOf(SkillName.MELEE)).addValue("damag",integerItemBonus);
+                        }
+                    }
+                    );
+                }
+            });
+        });
     }
 
     public String getName() {

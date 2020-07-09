@@ -2,9 +2,9 @@ package be.vives;
 
 import java.util.ArrayList;
 
-public abstract class Enemy {
+public class Enemy {
     private String name;
-    private String level;
+    private int level;
     private int baseHP;
     private int currentHP;
     private int xpValue;
@@ -12,16 +12,15 @@ public abstract class Enemy {
     private ArrayList<Item> droptable;
     private ArrayList<Skill> skills;
 
-    public Enemy(String name, String level, int baseHP, int currentHP,
-                 int xpValue, EnemyType enemyType, ArrayList<Item> droptable, ArrayList<Skill> skills) {
+    public Enemy(String name, int level, EnemyType enemyType) {
         this.name = name;
         this.level = level;
-        this.baseHP = baseHP;
-        this.currentHP = currentHP;
-        this.xpValue = xpValue;
+        this.baseHP = enemyType.baseHealth*(int)(Math.round(1.1*level));
+        this.currentHP = baseHP;
+        this.xpValue = enemyType.xpValue*(int)(Math.round(1.1*level));
         this.enemyType = enemyType;
-        this.droptable = droptable;
-        this.skills = skills;
+        this.droptable = new ArrayList<>();
+        this.skills = new ArrayList<>();
     }
 
     public boolean addItemToDroptist(Item item){
@@ -59,7 +58,7 @@ public abstract class Enemy {
         return name;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 

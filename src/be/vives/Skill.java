@@ -15,20 +15,21 @@ public class Skill {
         this.description = skillName.description;
     }
 
-    public boolean addValues(String key, int value){
-        if(checkSkill(key)) {
-            if (values.containsKey(key)) {
+    public boolean addValue(String strKey, int value){ //add values to skill (eg. dmg + amount of dmg)
+        String key = strKey.trim().toLowerCase(); // makes key universal
+        if(checkSkill(key)) {  // Checks if skill exists in list
+            if (values.containsKey(key)) {  // Checks if skill was already implemented in values
                 values.remove(key);
                 values.put(key, value);
-                return true;
+                return true;  // value replaced
             }
             else{
                 values.put(key, value);
-                return true;
+                return true;  // skill with value added
             }
         }
         else{
-            return false;
+            return false; // skill was not added since it doesn't exist in list
         }
     }
     protected boolean checkSkill(String key){ //Checks if key from "addValues" exists as a skill
@@ -43,9 +44,12 @@ public class Skill {
     public SkillName getSkillName(){
         return skillName;
     }
+
     public String getDescription(){
         return description;
     }
-    
 
+    public HashMap<String, Integer> getValues() {
+        return values;
+    }
 }

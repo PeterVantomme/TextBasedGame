@@ -1,18 +1,47 @@
 package be.vives;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public abstract class Item {
+public class Item {
     private String name;
     private int level;
-    private int[] values; //[0]> dmg; [1]> buff; [2]> heal; [3]> defense (hp+)
+    private final String[] itemValues = {"damagebonus","healthbonus","staminabonus"};
+    private HashMap<String, Integer> values;
     private BodyPart bodypart;
 
-    public Item(String name, int level, int[] values, BodyPart bodypart) {
+    public Item(String name, int level, BodyPart bodypart) {
         this.name = name;
         this.level = level;
-        this.values = values;
+        this.values = new HashMap<>();
         this.bodypart = bodypart;
+    }
+
+    public boolean addValue(String strKey, int value){ //add values to item (eg. dmgbonus and amount of dmgbonus)
+        String key = strKey.trim().toLowerCase(); // makes key universal
+        if(checkItem(key)) {  // Checks if item exists in list
+            if (values.containsKey(key)) {  // Checks if item was already implemented in values
+                values.remove(key);
+                values.put(key, value);
+                return true;  // value replaced
+            }
+            else{
+                values.put(key, value);
+                return true;  // item with value added
+            }
+        }
+        else{
+            return false; // item was not added since it doesn't exist in list
+        }
+    }
+
+    protected boolean checkItem(String key){ //Checks if key from "addValues" exists as an item
+        for(int i = 0; i<itemValues.length-1;i++){
+            if(itemValues[i].equals(key.toLowerCase().trim())){
+                return true;  // exists
+            }
+        }
+        return false; // doesn't exist
     }
 
     public String getName() {
@@ -23,7 +52,7 @@ public abstract class Item {
         return level;
     }
 
-    public int[] getValues() {
+    public HashMap<String, Integer> getValues() {
         return values;
     }
 

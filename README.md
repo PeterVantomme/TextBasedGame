@@ -9,6 +9,7 @@ A Text Based RPG written in Java using an OOP approach
 - [ ] Implement stamina-mechanic.
 - [ ] Test all superclasses.
 - [ ] Evaluate if superclasses contain all necessary methods.
+- [ ] Make Javadoc on the existing classes.
 - [ ] Start making Character subclasses with the charactertypes.
 - [ ] Start making Enemy subclasses with the enemytypes.
 - [ ] Add Event-superclass.

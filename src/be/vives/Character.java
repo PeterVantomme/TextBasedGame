@@ -15,6 +15,8 @@ public class Character {
     private ArrayList<Skill> skills;
     private HashMap<BodyPart, Item> equipped;
 
+    //TODO: ADD SKILLS TO CHARACTER
+
     public Character(String name, CharacterType type) {
         this.name = name;
         this.type = type;
@@ -26,6 +28,10 @@ public class Character {
         this.inventory = new ArrayList<>();
         this.skills = new ArrayList<>();
         this.equipped = new HashMap<>();
+    }
+
+    public void addSkill(Skill skill){
+        skills.add(skill);
     }
 
     public boolean takeDamage(int damage){
@@ -96,23 +102,18 @@ public class Character {
 
     public void processItems (){
 
-        int damagebonus;
-        int staminabonus;
         equipped.forEach((bodypart,item)-> {
-            item.getValues().forEach((stringItemValue,integerItemBonus)->{
-                if(stringItemValue.trim().toLowerCase().equals("healthbonus")){
-                    baseHP += integerItemBonus;
-                    currentHP = baseHP;
-                }
-                else if(stringItemValue.trim().toLowerCase().equals("damagebonus")){
-                    skills.get(skills.indexOf(SkillName.MELEE)).getValues().forEach((stringSkillValue,integerSkillValue)->{
-                        if (stringSkillValue.equals("damage")){
-                            skills.get(skills.indexOf(SkillName.MELEE)).addValue("damag",integerItemBonus);
-                        }
+            if(item.getValues().containsKey("damagebonus")){
+                int damagebonus = item.getValues().get("damagebonus");
+                for(Skill s: skills){
+                    if(s.getSkillType().equals("physical")){
+                        int skillBaseDamage = s.getValues().get("damage");
+                        s.addValue("damage",skillBaseDamage+damagebonus);
                     }
-                    );
                 }
-            });
+            }
+            else if(item.getValues().containsKey("healthbonus")){}
+            else if(item.getValues().containsKey("staminabonus")){}
         });
     }
 

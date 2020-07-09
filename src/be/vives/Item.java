@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Item {
     private String name;
     private int level;
-    private final String[] itemValues = {"damagebonus","healthbonus","staminabonus"};
+    private final String[] itemKeys = {"damagebonus","healthbonus","staminabonus"};
     private HashMap<String, Integer> values;
     private BodyPart bodypart;
 
@@ -36,8 +36,8 @@ public class Item {
     }
 
     protected boolean checkItem(String key){ //Checks if key from "addValues" exists as an item
-        for(int i = 0; i<itemValues.length-1;i++){
-            if(itemValues[i].equals(key.toLowerCase().trim())){
+        for(int i = 0; i<itemKeys.length-1;i++){
+            if(itemKeys[i].equals(key.toLowerCase().trim())){
                 return true;  // exists
             }
         }

@@ -1,18 +1,21 @@
 package be.vives;
 
 public enum SkillName {
-    MELEE("Inflicts medium physical damage on target"),
-    HEAVYMELEE("Inflicts heavy physical damage on target"),
-    MAGIC("Inflicts magic damage on target"),
-    DRAIN("Lowers enemy stamina"),
-    ENERGYDRINK("Raises stamina"),
-    WARCRY("Buffs damage on next turn"),
-    TAUNT("Buffs resistance on next turn"),
-    LIFESTEAL("Steals HP from the enemy target"),
-    STAMINASTEAL("Steals stamina from the enemy target"),
-    HEAL("Heals character");
+    MELEE("Inflicts medium physical damage on target","physical"),
+    HEAVYMELEE("Inflicts heavy physical damage on target","physical"),
+    MAGIC("Inflicts magic damage on target","magic"),
+    DRAIN("Lowers enemy stamina","debuff"),
+    ENERGYDRINK("Raises stamina","regen"),
+    WARCRY("Buffs damage on next turn", "buff"),
+    TAUNT("Buffs resistance on next turn", "buff"),
+    LIFESTEAL("Steals HP from the enemy target","steal"),
+    STAMINASTEAL("Steals stamina from the enemy target","steal"),
+    HEAL("Heals character","regen");
 
-    String description;
-    SkillName(String d) { description = d; }
+    String description, type;
+    SkillName(String d,String t) {
+        description = d;
+        type = t;
+    }
 
 }

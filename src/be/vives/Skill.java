@@ -49,6 +49,10 @@ public class Skill {
         return description;
     }
 
+    public String getSkillType(){
+        return skillName.type;
+    }
+
     public HashMap<String, Integer> getValues() {
         return values;
     }

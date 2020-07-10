@@ -1,23 +1,29 @@
 package be.vives;
 
-import javax.swing.*;
 import java.util.HashMap;
 
 //TODO: add the values from enum to class
 
 public class Skill {
-    private SkillName skillName; //Contains the skillnames and their description
-    private final String[] skillValues = {"damage","heal","buffdamage","buffhealth"}; //Temporary selection of possible skills
+    private SkillSettings skillSettings; //Contains the skillnames and their description
     private String description;
     private HashMap<String,Integer> values; //Here is dmg/buff/hp/... stored
+    private int effect;
+    private int baseEffect;
 
-    public Skill(SkillName skillName) {
-        this.skillName = skillName;
+    public Skill(SkillSettings skillSettings) {
+        this.skillSettings = skillSettings;
         this.values = new HashMap<>();
-        this.description = skillName.description;
+        this.description = skillSettings.description;
+        this.effect = skillSettings.effect;
+        this.baseEffect = effect;
+    }
+    public void changeEffectValue(int replaceValue) {
+        effect = replaceValue;
     }
 
-    public boolean addValue(String strKey, int value){ //add values to skill (eg. dmg + amount of dmg)
+    /* //Once multistat mods are implemented, this becomes useful
+    public boolean addOrReplaceValue(String strKey, int value){ //add values to skill (eg. dmg + amount of dmg)
         String key = strKey.trim().toLowerCase(); // makes key universal
         if(checkSkill(key)) {  // Checks if skill exists in list
             if (values.containsKey(key)) {  // Checks if skill was already implemented in values
@@ -42,9 +48,10 @@ public class Skill {
         }
         return false; // doesn't exist
     }
+    */
 
-    public SkillName getSkillName(){
-        return skillName;
+    public SkillSettings getSkillSettings(){
+        return skillSettings;
     }
 
     public String getDescription(){
@@ -52,10 +59,18 @@ public class Skill {
     }
 
     public String getSkillType(){
-        return skillName.type;
+        return skillSettings.type;
     }
 
-    public HashMap<String, Integer> getValues() {
+    /* public HashMap<String, Integer> getValues() {
         return values;
+    }
+    */
+
+    public int getEffect() {
+        return effect;
+    }
+    public int getBaseEffect() {
+        return baseEffect;
     }
 }

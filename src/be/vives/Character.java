@@ -3,27 +3,29 @@ package be.vives;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Character {
+public abstract class Character {
     private String name;
-    private CharacterType type;
+    private CharacterTypeSettings type;
     private int level;
     private int xp;
     private int baseHP;
     private int currentHP;
+    private int baseStamina;
+    private int currentStamina;
     private int inventoryLimit;
     private ArrayList<Item> inventory;
     private ArrayList<Skill> skills;
     private HashMap<BodyPart, Item> equipped;
 
-    //TODO: ADD SKILLS TO CHARACTER
-
-    public Character(String name, CharacterType type) {
+    public Character(String name, CharacterTypeSettings type) {
         this.name = name;
         this.type = type;
         this.level = 1;
         this.xp = 0;
-        this.baseHP = baseHP;
-        this.currentHP = type.baseHealth;
+        this.baseHP = type.baseHealth;
+        this.currentHP = baseHP;
+        this.baseStamina = type.baseStamina;
+        this.currentStamina = baseStamina;
         this.inventoryLimit = 10;
         this.inventory = new ArrayList<>();
         this.skills = new ArrayList<>();
@@ -87,6 +89,16 @@ public class Character {
             return false; // level too low/item not in inventory
         }
     }
+    public boolean unequipItem(Item item){
+        if(equipped.containsValue(item)){
+            equipped.remove(item.getBodypart());
+            processItems();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     public boolean addXp(int xpAmount){
         boolean leveledUp = false;
@@ -101,19 +113,38 @@ public class Character {
     }
 
     public void processItems (){
-
-        equipped.forEach((bodypart,item)-> {
+        for (Skill s: skills){  //change all skill stats to base
+            s.changeEffectValue(s.getSkillSettings().effect);
+        }
+        equipped.forEach((bodypart,item)-> {  //start checking equipped items
             if(item.getValues().containsKey("damagebonus")){
                 int damagebonus = item.getValues().get("damagebonus");
                 for(Skill s: skills){
                     if(s.getSkillType().equals("physical")){
-                        int skillBaseDamage = s.getValues().get("damage");
-                        s.addValue("damage",skillBaseDamage+damagebonus);
+                        int skillBaseDamage = s.getBaseEffect();
+                        s.changeEffectValue(skillBaseDamage+damagebonus);
+                        // makes sure damage doesn't continue going up when replacing equipped items.
                     }
                 }
             }
-            else if(item.getValues().containsKey("healthbonus")){}
-            else if(item.getValues().containsKey("staminabonus")){}
+            else if(item.getValues().containsKey("healthbonus")){
+                int healthbonus = item.getValues().get("healthbonus");
+                for(Skill s: skills){
+                    if(s.getSkillType().equals("health")){
+                        int skillBaseHeal = s.getBaseEffect();
+                        s.changeEffectValue(skillBaseHeal+healthbonus);
+                    }
+                }
+            }
+            else if(item.getValues().containsKey("staminabonus")){
+                int staminabonus = item.getValues().get("staminabonus");
+                for(Skill s: skills){
+                    if(s.getSkillType().equals("stamina")){
+                        int skillBaseStamina = s.getBaseEffect();
+                        s.changeEffectValue(skillBaseStamina+staminabonus);
+                    }
+                }
+            }
         });
     }
 
@@ -121,7 +152,7 @@ public class Character {
         return name;
     }
 
-    public CharacterType getType() {
+    public CharacterTypeSettings getType() {
         return type;
     }
 

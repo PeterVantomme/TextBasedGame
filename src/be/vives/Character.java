@@ -36,6 +36,22 @@ public abstract class Character {
         skills.add(skill);
     }
 
+    public void addSkills(Skill[] skill){
+        for(int i = 0; i<skill.length-1;i++){
+            skills.add(skill[i]);
+        }
+    }
+
+    public int useSkill(Skill skill){
+        for(Skill s: skills){
+            if (s == skill){
+                return s.getEffect();
+            }
+            else {return 0;}
+        }
+        return 0;
+    }
+
     public boolean takeDamage(int damage){
         if(currentHP-damage > 0){
             currentHP-=damage;
@@ -162,6 +178,14 @@ public abstract class Character {
 
     public ArrayList<Item> getInventory() {
         return inventory;
+    }
+
+    // test skills
+    public void skillSet(){
+        for(Skill s:skills){
+            System.out.println(s.getSkillSettings());
+        }
+        System.out.println(" ");
     }
 
     public ArrayList<Skill> getSkills() {

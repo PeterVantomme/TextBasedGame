@@ -2,8 +2,8 @@
 A Text Based RPG written in Java using an OOP approach
 
 ## Task List
-- [ ] Character-superclass.
-- [ ] Enemy-superclass.
+- [X] Character-superclass.
+- [X] Enemy-superclass -- Not needed
 - [ ] Item-superclass.
 - [ ] Skill-superclass.
 - [ ] Implement stamina-mechanic.
@@ -15,6 +15,9 @@ A Text Based RPG written in Java using an OOP approach
 - [ ] Add Event-superclass.
 - [ ] Test and improve Fight-class,
 - [ ] Make BossFight subclass extending from Event class.
+- [ ] Implement debuffs somehow.
+- [ ] Add skills with multiple effects
+- [ ] Make enemy skills random (automated using Math.random)
 - ...
 
 

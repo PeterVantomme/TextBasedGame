@@ -21,6 +21,26 @@ public class Enemy {
         this.enemyType = enemyType;
         this.droptable = new ArrayList<>();
         this.skills = new ArrayList<>();
+        setSkills(enemyType);
+    }
+    public boolean setSkills(EnemyType enemyType){
+        switch (enemyType){
+            case ARACHNOID:
+                skills.add(new Skill(SkillSettings.BITE));
+                skills.add(new Skill(SkillSettings.POISON));
+                skills.add(new Skill(SkillSettings.WEB));
+                return true;
+            case SKELETON:
+                skills.add(new Skill(SkillSettings.BONER));
+                skills.add(new Skill(SkillSettings.HEALTH_BOOST));
+                return true;
+            case SLIME:
+                skills.add(new Skill(SkillSettings.MAGIC));
+                skills.add(new Skill(SkillSettings.BODYSLAM));
+                return true;
+            default:
+                return false;
+        }
     }
 
     public boolean addItemToDroptist(Item item){
@@ -81,4 +101,6 @@ public class Enemy {
     public ArrayList<Item> getDroptable() {
         return droptable;
     }
+
+
 }

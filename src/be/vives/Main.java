@@ -3,12 +3,10 @@ package be.vives;
 public class Main {
 
 	public static void main(String[] args) {
-		Character player1 = new Character("player1", CharacterTypeSettings.WARRIOR);
-		Skill meleeTest = new Skill(SkillSettings.MELEE);
-		player1.addSkill(meleeTest);
-		System.out.println(player1.getSkills().get(0).getEffect());
-		Enemy thot1 = new Enemy("Thottinus The First",1, EnemyType.THOT);
-		Item test = new Item("Thotslayer3000", 1, BodyPart.RHAND);
+		Character player1 = new Character_Warrior("player1");
+		player1.skillSet();
+		Enemy skelly= new Enemy("SkellyWelly",1, EnemyType.SKELETON);
+		Item test = new Item("Skellyslayer3000", 1, BodyPart.RHAND);
 		test.addValue("damagebonus", 50);
 		player1.addItemToInventory(test);
 		player1.equipItem(test);
